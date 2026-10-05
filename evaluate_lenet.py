@@ -8,6 +8,7 @@ from sklearn.metrics import confusion_matrix
 import numpy as np
 import os
 
+
 # =====================================================================
 # 1. RECREATE THE ARCHITECTURE & LOAD WEIGHTS
 # =====================================================================
@@ -50,7 +51,7 @@ data_transforms = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-data_dir = "./CNN_dataset"
+data_dir = "./Image_dataset"
 full_dataset = datasets.ImageFolder(root=data_dir, transform=data_transforms)
 class_names = {v: k for k, v in full_dataset.class_to_idx.items()} # Reverse mapping
 
@@ -68,6 +69,8 @@ train_dataset, val_dataset, test_dataset = random_split(
 train_loader = DataLoader(train_dataset, batch_size=total_count, shuffle=False)
 val_loader = DataLoader(val_dataset, batch_size=total_count, shuffle=False)
 test_loader = DataLoader(test_dataset, batch_size=total_count, shuffle=False)
+
+
 
 # =====================================================================
 # 3. HELPER FUNCTIONS FOR VISUALIZATION
@@ -121,31 +124,6 @@ plot_confusion_matrix(test_true, test_pred, "Test Confusion Matrix", axes[2])
 plt.tight_layout()
 plt.show()
 
-# # --- Plot 2: Visual Results on Test Set ---
-# print("Plotting visual results from the Test Set...")
-# num_images_to_show = min(8, len(test_images)) # Show up to 8 images
-# fig_img, axes_img = plt.subplots(2, 4, figsize=(15, 8))
-# axes_img = axes_img.flatten()
-
-# for i in range(num_images_to_show):
-#     img = test_images[i]
-#     true_label = class_names[test_true[i]]
-#     pred_label = class_names[test_pred[i]]
-    
-#     # Determine color (Green for correct, Red for wrong)
-#     color = "green" if true_label == pred_label else "red"
-    
-#     axes_img[i].imshow(unnormalize(img))
-#     axes_img[i].set_title(f"Act: {true_label}\nPred: {pred_label}", color=color, fontsize=10)
-#     axes_img[i].axis('off')
-
-# # Hide any unused subplots if test set is smaller than 8
-# for j in range(num_images_to_show, 8):
-#     axes_img[j].axis('off')
-
-# plt.tight_layout()
-# plt.show()
-
 
 # --- Plot 2: Visual Results on Test Set ---
 print("Plotting visual results from the Test Set...")
@@ -155,7 +133,7 @@ test_indices = test_dataset.indices
 test_filenames = [os.path.basename(full_dataset.samples[i][0]) for i in test_indices]
 
 num_images_to_show = min(8, len(test_images)) # Show up to 8 images
-fig_img, axes_img = plt.subplots(2, 4, figsize=(15, 8))
+fig_img, axes_img = plt.subplots(2, 4, figsize=(15, 6))
 axes_img = axes_img.flatten()
 
 for i in range(num_images_to_show):

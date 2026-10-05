@@ -25,35 +25,6 @@ model.load_state_dict(torch.load("resnet18_fea_anomaly.pth", map_location=device
 model = model.to(device)
 model.eval()
 
-# # =====================================================================
-# # 2. RECREATE DATA SPLITS (Must match training exactly)
-# # =====================================================================
-# data_transforms = transforms.Compose([
-#     transforms.Resize((224, 224)), # Match ResNet resolution
-#     transforms.ToTensor(),
-#     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
-# ])
-
-# data_dir = "./CNN_dataset"
-# full_dataset = datasets.ImageFolder(root=data_dir, transform=data_transforms)
-# class_names = {v: k for k, v in full_dataset.class_to_idx.items()}
-# target_names_list = [class_names[i] for i in range(3)]
-
-# total_count = len(full_dataset)
-# train_count = int(0.75 * total_count)
-# val_count = int(0.15 * total_count)
-# test_count = total_count - train_count - val_count
-
-# # Same seed ensures identical test images
-# train_dataset, val_dataset, test_dataset = random_split(
-#     full_dataset, [train_count, val_count, test_count],
-#     generator=torch.Generator().manual_seed(42)
-# )
-
-# train_loader = DataLoader(train_dataset, batch_size=total_count, shuffle=False)
-# val_loader = DataLoader(val_dataset, batch_size=total_count, shuffle=False)
-# test_loader = DataLoader(test_dataset, batch_size=total_count, shuffle=False)
-
 
 # =====================================================================
 # 2. RECREATE DATA SPLITS (Must match training exactly)
@@ -64,7 +35,7 @@ data_transforms = transforms.Compose([
     transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
 ])
 
-data_dir = "./CNN_dataset"
+data_dir = "./Image_dataset"
 full_dataset = datasets.ImageFolder(root=data_dir, transform=data_transforms)
 class_names = {v: k for k, v in full_dataset.class_to_idx.items()}
 target_names_list = [class_names[i] for i in range(3)]
@@ -164,7 +135,7 @@ test_indices = test_dataset.indices
 test_filenames = [os.path.basename(full_dataset.samples[i][0]) for i in test_indices]
 
 num_images_to_show = min(8, len(test_images))
-fig_img, axes_img = plt.subplots(2, 4, figsize=(15, 8))
+fig_img, axes_img = plt.subplots(2, 4, figsize=(15, 6))
 axes_img = axes_img.flatten()
 
 for i in range(num_images_to_show):

@@ -1,0 +1,5 @@
+train: ./images/train
+val: ./images/val
+
+nc: 3
+names: ['Duplicate_Element', 'In_plane', 'Out_of_plane']

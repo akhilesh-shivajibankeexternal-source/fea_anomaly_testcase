@@ -22,7 +22,7 @@ data_transforms = transforms.Compose([
                          std=[0.229, 0.224, 0.225])
 ])
 
-data_dir = "./CNN_dataset"
+data_dir = "./Image_dataset"
 full_dataset = datasets.ImageFolder(root=data_dir, transform=data_transforms)
 print(f"Class mapping found: {full_dataset.class_to_idx}")
 
